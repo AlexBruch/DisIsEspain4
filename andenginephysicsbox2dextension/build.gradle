@@ -10,6 +10,12 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    sourceSets {
+        main {
+            jni.srcDirs = []
+            // This needs to be done so that gradle does not know about your jni. There are errors otherwise
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
