@@ -21,6 +21,9 @@ import java.io.IOException;
  * http://www.matim-dev.com/full-game-tutorial---part-5.html
  * https://www.youtube.com/watch?v=0-rYK2oh8oo
  * https://www.youtube.com/watch?v=uvv23lNOqyY
+ *
+ * ERRORS PHYSYCS
+ * http://geq-i.blogspot.com.es/2014/02/how-to-setup-andengine-in-android-studio.html
  * */
 
 public class GameActivity extends BaseGameActivity {

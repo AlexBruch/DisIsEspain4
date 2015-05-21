@@ -78,8 +78,7 @@ public class GameScene extends BaseScene {
     /* ----- FISIQUES ----- */
 
     private void createPhysics() {
-        //physicsWorld = new FixedStepPhysicsWorld(60, new Vector2(0, -17), false);
-        //registerUpdateHandler(physicsWorld);
+        physicsWorld = new FixedStepPhysicsWorld(60, new Vector2(0, -17), false);
+        registerUpdateHandler(physicsWorld);
     }
-
 }
