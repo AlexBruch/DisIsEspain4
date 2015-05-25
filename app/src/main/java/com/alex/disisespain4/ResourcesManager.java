@@ -24,9 +24,6 @@ import org.andengine.util.debug.Debug;
  * Created by 48086820F on 19/05/2015.
  */
 public class ResourcesManager {
-    //---------------------------------------------
-    // VARIABLES
-    //---------------------------------------------
 
     private static final ResourcesManager INSTANCE = new ResourcesManager();
 
@@ -51,13 +48,17 @@ public class ResourcesManager {
 
     public Font font;
 
-    //---------------------------------------------
-    // TEXTURES & TEXTURE REGIONS
-    //---------------------------------------------
+    /* ----- PLATAFORMES I MONEDES ----- */
 
-    //---------------------------------------------
-    // CLASS LOGIC
-    //---------------------------------------------
+    // Textures del joc
+    public BuildableBitmapTextureAtlas gameTextureAtlas;
+
+    // Textures d'objectes i monedes
+
+    public ITextureRegion platform1_zona;
+    public ITextureRegion platform2_zona;
+    public ITextureRegion platform3_zona;
+    public ITextureRegion coin_zona;
 
     public void loadMenuResources()
     {
@@ -92,36 +93,42 @@ public class ResourcesManager {
         }
     }
 
-    private void loadMenuAudio()
-    {
+    private void loadMenuAudio() {
 
     }
 
-    private void loadGameGraphics()
-    {
+    private void loadGameGraphics() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/joc/");
+        gameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+
+        platform1_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "platform1.png");
+        platform2_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "platform2.png");
+        platform3_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "platform3.png");
+        coin_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "coin.png");
+
+        try {
+            this.gameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+        } catch (final ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Debug.e(e);
+        }
+    }
+
+    private void loadGameFonts() {
 
     }
 
-    private void loadGameFonts()
-    {
+    private void loadGameAudio() {
 
     }
 
-    private void loadGameAudio()
-    {
-
-    }
-
-    public void loadSplashScreen()
-    {
+    public void loadSplashScreen() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
         splashTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
         splash_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(splashTextureAtlas, activity, "splash.png", 0, 0);
         splashTextureAtlas.load();
     }
 
-    public void unloadSplashScreen()
-    {
+    public void unloadSplashScreen() {
         splashTextureAtlas.unload();
         splash_region = null;
     }
@@ -143,8 +150,7 @@ public class ResourcesManager {
      * We use this method at beginning of game loading, to prepare Resources Manager properly,
      * setting all needed parameters, so we can latter access them from different classes (eg. scenes)
      */
-    public static void prepareManager(Engine engine, GameActivity activity, Camera camera, VertexBufferObjectManager vbom)
-    {
+    public static void prepareManager(Engine engine, GameActivity activity, Camera camera, VertexBufferObjectManager vbom) {
         getInstance().engine = engine;
         getInstance().activity = activity;
         getInstance().camera = camera;
@@ -175,6 +181,4 @@ public class ResourcesManager {
     public void unloadGameTextures() {
 
     }
-
-
 }
