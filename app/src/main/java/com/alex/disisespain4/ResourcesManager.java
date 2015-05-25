@@ -3,6 +3,7 @@ package com.alex.disisespain4;
 import android.graphics.Color;
 
 import org.andengine.engine.Engine;
+import org.andengine.engine.camera.BoundCamera;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
@@ -17,6 +18,7 @@ import org.andengine.opengl.texture.atlas.bitmap.source.IBitmapTextureAtlasSourc
 import org.andengine.opengl.texture.atlas.buildable.builder.BlackPawnTextureAtlasBuilder;
 import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder;
 import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.debug.Debug;
 
@@ -29,7 +31,7 @@ public class ResourcesManager {
 
     public Engine engine;
     public GameActivity activity;
-    public Camera camera;
+    public BoundCamera camera;
     public VertexBufferObjectManager vbom;
 
     /* ----- SPLASH ----- */
@@ -59,6 +61,10 @@ public class ResourcesManager {
     public ITextureRegion platform2_zona;
     public ITextureRegion platform3_zona;
     public ITextureRegion coin_zona;
+
+    /* ----- TEXTURA JUGADOR ----- */
+
+    public ITiledTextureRegion posicio_jugador;
 
     public void loadMenuResources()
     {
@@ -111,6 +117,12 @@ public class ResourcesManager {
         } catch (final ITextureAtlasBuilder.TextureAtlasBuilderException e) {
             Debug.e(e);
         }
+
+        /* ----- POSICIO JUGADOR ----- */
+
+        posicio_jugador = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "jugador.png", 3, 1);
+
+        gameTextureAtlas.load();
     }
 
     private void loadGameFonts() {
@@ -150,7 +162,7 @@ public class ResourcesManager {
      * We use this method at beginning of game loading, to prepare Resources Manager properly,
      * setting all needed parameters, so we can latter access them from different classes (eg. scenes)
      */
-    public static void prepareManager(Engine engine, GameActivity activity, Camera camera, VertexBufferObjectManager vbom) {
+    public static void prepareManager(Engine engine, GameActivity activity, BoundCamera camera, VertexBufferObjectManager vbom) {
         getInstance().engine = engine;
         getInstance().activity = activity;
         getInstance().camera = camera;
