@@ -1,18 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <level width="3000" height="540">
-    <entity x="480" y="30" type="protesta"/>
-    <entity x="100" y="100" type="platform1"/>
+    <entity x="100" y="265" type="platform1"/>
+
+    <!--    EUROS    -->
+
     <entity x="400" y="270" type="euro"/>
     <entity x="500" y="400" type="euro"/>
     <entity x="600" y="400" type="euro"/>
+
+    <!--    CORBATES    -->
+
+    <entity x="800" y="430" type="corbata"/>
+    <entity x="950" y="120" type="corbata"/>
+
+    <!--    POLIS    -->
+
     <entity x="400" y="370" type="poli"/>
     <entity x="500" y="300" type="poli"/>
     <entity x="670" y="500" type="poli"/>
+
+    <!--    JUTGES    -->
+
     <entity x="600" y="250" type="martell"/>
-    <entity x="60" y="140" type="player"/>
+
+    <!--    JUGADOR    -->
+
+    <entity x="60" y="270" type="player"/>
+
+
     <entity x="25" y="530" type="popu"/>
     <entity x="65" y="530" type="popu"/>
     <entity x="105" y="530" type="popu"/>
     <entity x="145" y="530" type="popu"/>
+
+    <!--    COMPLETAR NIVELL    -->
+
     <entity x="1980" y="250" type="levelComplete"/>
 </level>

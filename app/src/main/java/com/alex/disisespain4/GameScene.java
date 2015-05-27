@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
+import org.andengine.engine.camera.Camera;
 import org.andengine.engine.camera.hud.HUD;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
@@ -27,6 +28,7 @@ import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
 import org.andengine.input.touch.TouchEvent;
+import org.andengine.opengl.util.GLState;
 import org.andengine.util.SAXUtils;
 import org.andengine.util.adt.align.HorizontalAlign;
 import org.andengine.util.adt.color.Color;
@@ -65,9 +67,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
     private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLATFORM2 = "platform2";
     private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLATFORM3 = "platform3";
     private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_EURO = "euro";
+    private static final Object TAG_CORBATA = "corbata";
     private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_POLI = "poli";
     private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_MARTELL = "martell";
-    private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PROTESTA = "protesta";
+    //private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PROTESTA = "protesta";
 
     /* ----- TAG JUGADOR ----- */
 
@@ -120,7 +123,20 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
     /* ----- BACKGROUND ----- */
 
     private void createBackground() {
-        setBackground(new Background(Color.CYAN));
+        //setBackground(new Background(Color.CYAN));
+        int ample = 480;
+        for(int x=0; x<4; x++) {
+
+            attachChild(new Sprite(ample, 270, resourcesManager.fons_joc, vbom) // Posicio fons joc
+            {
+                @Override
+                protected void preDraw(GLState pGLState, Camera pCamera) {
+                    super.preDraw(pGLState, pCamera);
+                    pGLState.enableDither();
+                }
+            });
+            ample = ample + 959;
+        }
     }
 
     /* ----- HUD ----- */
@@ -198,11 +214,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
                     final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyDef.BodyType.StaticBody, FIXTURE_DEF);
                     body.setUserData("platform3");
                     physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
-                }else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PROTESTA)) {
-                    levelObject = new Sprite(x, y, resourcesManager.protesta_zona, vbom);
-                    final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyDef.BodyType.StaticBody, FIXTURE_DEF);
-                    body.setUserData("protesta");
-                    physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
                 }else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_EURO)) { // Creem euros
                     levelObject = new Sprite(x, y, resourcesManager.euro_zona, vbom) {
                         @Override
@@ -211,6 +222,21 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 
                             if(player.collidesWith(this)) { // Si toquem una moneda
                                 addToScore(1000);
+                                this.setVisible(false);
+                                this.setIgnoreUpdate(true);
+                            }
+                        }
+                    };
+                    levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
+                }
+                else if (type.equals(TAG_CORBATA)) { // Creem corbates
+                    levelObject = new Sprite(x, y, resourcesManager.corbata_zona, vbom) {
+                        @Override
+                        protected void onManagedUpdate(float pSecondsElapsed) {
+                            super.onManagedUpdate(pSecondsElapsed);
+
+                            if(player.collidesWith(this)) { // Si toquem una corbata
+                                addToScore(1500);
                                 this.setVisible(false);
                                 this.setIgnoreUpdate(true);
                             }

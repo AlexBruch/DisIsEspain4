@@ -57,6 +57,7 @@ public class ResourcesManager {
 
     // Textures d'objectes i monedes
 
+    public ITextureRegion fons_joc;
     public ITextureRegion platform1_zona;
     public ITextureRegion platform2_zona;
     public ITextureRegion platform3_zona;
@@ -64,6 +65,7 @@ public class ResourcesManager {
     public ITextureRegion poli_zona;
     public ITextureRegion martell_zona;
     public ITextureRegion protesta_zona;
+    public ITextureRegion corbata_zona;
 
     /* ----- TEXTURA JUGADOR ----- */
 
@@ -128,12 +130,14 @@ public class ResourcesManager {
         platform2_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "platform2.png");
         platform3_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "platform3.png");
         euro_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "euro.png");
+        corbata_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "corbata.png");
         complete_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "levelCompleteWindow.png");
         complete_stars_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "stars.png", 2, 1);
         popu_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "popu.png");
         poli_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "poli.png");
         martell_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "martell.png");
         protesta_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "protesta.png");
+        fons_joc = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "fons.png");
 
         try {
             this.gameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
@@ -187,10 +191,6 @@ public class ResourcesManager {
         getInstance().camera = camera;
         getInstance().vbom = vbom;
     }
-
-    //---------------------------------------------
-    // GETTERS AND SETTERS
-    //---------------------------------------------
 
     public static ResourcesManager getInstance()
     {
