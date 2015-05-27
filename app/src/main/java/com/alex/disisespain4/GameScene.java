@@ -125,7 +125,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
     private void createBackground() {
         //setBackground(new Background(Color.CYAN));
         int ample = 480;
-        for(int x=0; x<4; x++) {
+        for(int x=0; x<7; x++) {
 
             attachChild(new Sprite(ample, 270, resourcesManager.fons_joc, vbom) // Posicio fons joc
             {
@@ -181,7 +181,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 
                 camera.setBounds(0, 0, width, height); // limits de la camara trets de l'XML
                 camera.setBoundsEnabled(true);
-
                 return GameScene.this;
             }
         });
@@ -265,7 +264,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
                             super.onManagedUpdate(pSecondsElapsed);
 
                             if(player.collidesWith(this)) { // Si toquem un policia
-                                addToScore(-1500);
+                                addToScore(-5000);
                                 this.setVisible(false);
                                 this.setIgnoreUpdate(true);
                             }
@@ -294,9 +293,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 
                             if (player.collidesWith(this))
                             {
-                                levelCompleteWindow.display(LevelCompleteWindow.StarsCount.TWO, GameScene.this, camera);
+                                levelCompleteWindow.display(LevelCompleteWindow.StarsCount.ONE, GameScene.this, camera);
                                 this.setVisible(false);
                                 this.setIgnoreUpdate(true);
+                                gameOverDisplayed = false;
                             }
                         }
                     };

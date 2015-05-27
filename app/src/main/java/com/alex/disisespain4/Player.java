@@ -22,15 +22,11 @@ public abstract class Player extends AnimatedSprite {
 
     /* ----- MORT JUGADOR ----- */
 
-    public abstract  void onDie();
+    public abstract void onDie();
 
     /* ----- FER CORRER ----- */
 
     private boolean canRun = false;
-
-    /* ----- Maxim de salts ----- */
-
-    //private int footContacts = 0;
 
     /* ----- CONSTRUCTOR ----- */
 
@@ -75,18 +71,6 @@ public abstract class Player extends AnimatedSprite {
     /* ----- FUNCIO PER SALTAR ----- */
 
     public void jump() {
-        /*if (footContacts < 1) {
-            return;
-        }*/
         body.setLinearVelocity(new Vector2(body.getLinearVelocity().x, 12));
     }
-/*
-    public void increaseFootContacts() {
-        footContacts++;
-    }
-
-    public void decreaseFootContacts() {
-
-        footContacts--;
-    }*/
 }

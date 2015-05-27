@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<level width="3000" height="540">
+<level width="6000" height="540">
     <entity x="100" y="265" type="platform1"/>
 
     <!--    EUROS    -->
@@ -7,26 +7,56 @@
     <entity x="400" y="270" type="euro"/>
     <entity x="500" y="400" type="euro"/>
     <entity x="600" y="400" type="euro"/>
+    <entity x="650" y="170" type="euro"/>
+    <entity x="800" y="500" type="euro"/>
+    <entity x="990" y="210" type="euro"/>
+    <entity x="1150" y="290" type="euro"/>
+    <entity x="1300" y="400" type="euro"/>
+    <entity x="1400" y="400" type="euro"/>
+    <entity x="1500" y="270" type="euro"/>
+    <entity x="1640" y="430" type="euro"/>
+    <entity x="1800" y="500" type="euro"/>
+    <entity x="1990" y="70" type="euro"/>
+    <entity x="2220" y="190" type="euro"/>
+    <entity x="3300" y="350" type="euro"/>
+    <entity x="3400" y="400" type="euro"/>
+    <entity x="4500" y="270" type="euro"/>
+    <entity x="4840" y="430" type="euro"/>
+    <entity x="4990" y="500" type="euro"/>
+    <entity x="5290" y="70" type="euro"/>
+    <entity x="5420" y="190" type="euro"/>
+    <entity x="5600" y="350" type="euro"/>
 
     <!--    CORBATES    -->
 
     <entity x="800" y="430" type="corbata"/>
-    <entity x="950" y="120" type="corbata"/>
+    <entity x="1950" y="120" type="corbata"/>
+    <entity x="2800" y="330" type="corbata"/>
+    <entity x="3950" y="120" type="corbata"/>
+    <entity x="4950" y="220" type="corbata"/>
 
     <!--    POLIS    -->
 
-    <entity x="400" y="370" type="poli"/>
-    <entity x="500" y="300" type="poli"/>
-    <entity x="670" y="500" type="poli"/>
+    <entity x="600" y="370" type="poli"/>
+    <entity x="800" y="300" type="poli"/>
+    <entity x="970" y="500" type="poli"/>
+    <entity x="1200" y="370" type="poli"/>
+    <entity x="1500" y="300" type="poli"/>
+    <entity x="2370" y="500" type="poli"/>
+    <entity x="2900" y="370" type="poli"/>
+    <entity x="3500" y="300" type="poli"/>
+    <entity x="4670" y="500" type="poli"/>
 
     <!--    JUTGES    -->
 
-    <entity x="600" y="250" type="martell"/>
+    <entity x="2600" y="150" type="martell"/>
+    <entity x="27850" y="360" type="martell"/>
+    <entity x="4600" y="500" type="martell"/>
+    <entity x="5600" y="410" type="martell"/>
 
     <!--    JUGADOR    -->
 
     <entity x="60" y="270" type="player"/>
-
 
     <entity x="25" y="530" type="popu"/>
     <entity x="65" y="530" type="popu"/>
@@ -35,5 +65,5 @@
 
     <!--    COMPLETAR NIVELL    -->
 
-    <entity x="1980" y="250" type="levelComplete"/>
+    <entity x="5880" y="270" type="levelComplete"/>
 </level>

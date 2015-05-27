@@ -34,7 +34,7 @@ public class ResourcesManager {
     public BoundCamera camera;
     public VertexBufferObjectManager vbom;
 
-    /* ----- SPLASH ----- */
+    /* ----- SPLASH / LOGO ----- */
     public ITextureRegion splash_region;
     private BitmapTextureAtlas splashTextureAtlas;
 

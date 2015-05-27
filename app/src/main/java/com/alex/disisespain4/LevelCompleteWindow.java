@@ -38,13 +38,9 @@ public class LevelCompleteWindow extends Sprite {
         attachChild(star3);
     }
 
-    /**
-     * Change star`s tile index, depends on stars count.
-     * @param starsCount
-     */
     public void display(StarsCount starsCount, Scene scene, Camera camera)
     {
-        // Change stars tile index, based on stars count (1-3)
+        // Canviem la quantitat d'estrelles segons les que tenim
         switch (starsCount)
         {
             case ONE:
@@ -63,7 +59,6 @@ public class LevelCompleteWindow extends Sprite {
                 star3.setCurrentTileIndex(0);
                 break;
         }
-
 
         // Hide HUD
         camera.getHUD().setVisible(false);
