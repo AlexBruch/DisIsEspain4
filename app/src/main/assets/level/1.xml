@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<level width="1000" height="780">
+<level width="3000" height="540">
+    <entity x="480" y="30" type="protesta"/>
     <entity x="100" y="100" type="platform1"/>
-    <entity x="200" y="200" type="platform1"/>
-    <entity x="400" y="200" type="platform3"/>
-    <entity x="550" y="300" type="platform2"/>
-    <entity x="720" y="240" type="platform3"/>
-    <entity x="400" y="270" type="coin"/>
-    <entity x="500" y="400" type="coin"/>
-    <entity x="600" y="400" type="coin"/>
+    <entity x="400" y="270" type="euro"/>
+    <entity x="500" y="400" type="euro"/>
+    <entity x="600" y="400" type="euro"/>
+    <entity x="400" y="370" type="poli"/>
+    <entity x="500" y="300" type="poli"/>
+    <entity x="670" y="500" type="poli"/>
+    <entity x="600" y="250" type="martell"/>
     <entity x="60" y="140" type="player"/>
+    <entity x="25" y="530" type="popu"/>
+    <entity x="65" y="530" type="popu"/>
+    <entity x="105" y="530" type="popu"/>
+    <entity x="145" y="530" type="popu"/>
+    <entity x="1980" y="250" type="levelComplete"/>
 </level>

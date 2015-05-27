@@ -60,11 +60,23 @@ public class ResourcesManager {
     public ITextureRegion platform1_zona;
     public ITextureRegion platform2_zona;
     public ITextureRegion platform3_zona;
-    public ITextureRegion coin_zona;
+    public ITextureRegion euro_zona;
+    public ITextureRegion poli_zona;
+    public ITextureRegion martell_zona;
+    public ITextureRegion protesta_zona;
 
     /* ----- TEXTURA JUGADOR ----- */
 
     public ITiledTextureRegion posicio_jugador;
+
+    /* ----- Nivell Completat ----- */
+
+    public ITextureRegion complete_window_region;
+    public ITiledTextureRegion complete_stars_region;
+
+    /* ----- Popularitat ----- */
+
+    public ITextureRegion popu_zona;
 
     public void loadMenuResources()
     {
@@ -104,23 +116,30 @@ public class ResourcesManager {
     }
 
     private void loadGameGraphics() {
+
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/joc/");
         gameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+
+        /* ----- POSICIO JUGADOR ----- */
+
+        posicio_jugador = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "jugador.png", 3, 1);
 
         platform1_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "platform1.png");
         platform2_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "platform2.png");
         platform3_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "platform3.png");
-        coin_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "coin.png");
+        euro_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "euro.png");
+        complete_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "levelCompleteWindow.png");
+        complete_stars_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "stars.png", 2, 1);
+        popu_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "popu.png");
+        poli_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "poli.png");
+        martell_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "martell.png");
+        protesta_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "protesta.png");
 
         try {
             this.gameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
         } catch (final ITextureAtlasBuilder.TextureAtlasBuilderException e) {
             Debug.e(e);
         }
-
-        /* ----- POSICIO JUGADOR ----- */
-
-        posicio_jugador = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "jugador.png", 3, 1);
 
         gameTextureAtlas.load();
     }

@@ -11,6 +11,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 import org.andengine.engine.camera.hud.HUD;
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.LoopEntityModifier;
 import org.andengine.entity.modifier.ScaleModifier;
@@ -43,6 +45,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 
     /* ----- HUD ----- */
     private HUD gameHUD;
+    private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_POPU = "popu";
 
     /* ----- Puntuacions ----- */
     private Text scoreText;
@@ -57,18 +60,25 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
     private static final String TAG_ENTITY_ATTRIBUTE_X = "x";
     private static final String TAG_ENTITY_ATTRIBUTE_Y = "y";
     private static final String TAG_ENTITY_ATTRIBUTE_TYPE = "type";
-    //private static final String TAG_LEVEL = "level";
 
     private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLATFORM1 = "platform1";
     private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLATFORM2 = "platform2";
     private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLATFORM3 = "platform3";
-    private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_COIN = "coin";
+    private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_EURO = "euro";
+    private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_POLI = "poli";
+    private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_MARTELL = "martell";
+    private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PROTESTA = "protesta";
 
     /* ----- TAG JUGADOR ----- */
 
     private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
 
     private Player player;
+
+    /* ----- NIvell complert ----- */
+
+    private LevelCompleteWindow levelCompleteWindow;
+    private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_LEVEL_COMPLETE = "levelComplete";
 
     /* ----- MUERTE ----- */
 
@@ -87,6 +97,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
         loadLevel(1);
         setOnSceneTouchListener(this);
         createGameOverText();
+        levelCompleteWindow = new LevelCompleteWindow(vbom);
     }
 
     @Override
@@ -109,7 +120,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
     /* ----- BACKGROUND ----- */
 
     private void createBackground() {
-        setBackground(new Background(Color.BLUE));
+        setBackground(new Background(Color.CYAN));
     }
 
     /* ----- HUD ----- */
@@ -117,9 +128,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
     private void createHUD() {
         gameHUD=new HUD();
         // Posicio text puntuacio
-        scoreText = new Text(10, 490, resourcesManager.font, "Score: 01234", new TextOptions(HorizontalAlign.LEFT), vbom);
+        scoreText = new Text(620, 490, resourcesManager.font, "Suiza: 01234", new TextOptions(HorizontalAlign.LEFT), vbom);
         scoreText.setAnchorCenter(0, 0);
-        scoreText.setText("Score: 0");
+        scoreText.setText("Suiza: 0");
         gameHUD.attachChild(scoreText);
 
         camera.setHUD(gameHUD);
@@ -129,14 +140,14 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 
     private void addToScore(int i) {
         score += i;
-        scoreText.setText("Score: " + score);
+        scoreText.setText("Suiza: " + score);
     }
 
     /* ----- FISIQUES ----- */
 
     private void createPhysics() {
         physicsWorld = new FixedStepPhysicsWorld(60, new Vector2(0, -17), false);
-        physicsWorld.setContactListener(contactListener());
+        //physicsWorld.setContactListener(contactListener());
         registerUpdateHandler(physicsWorld);
     }
 
@@ -152,7 +163,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
                 final int width = SAXUtils.getIntAttributeOrThrow(pAttributes, LevelConstants.TAG_LEVEL_ATTRIBUTE_WIDTH);
                 final int height = SAXUtils.getIntAttributeOrThrow(pAttributes, LevelConstants.TAG_LEVEL_ATTRIBUTE_HEIGHT);
 
-                camera.setBounds(0, 0, width, height); // here we set camera bounds
+                camera.setBounds(0, 0, width, height); // limits de la camara trets de l'XML
                 camera.setBoundsEnabled(true);
 
                 return GameScene.this;
@@ -177,19 +188,58 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
                     final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyDef.BodyType.StaticBody, FIXTURE_DEF);
                     body.setUserData("platform2");
                     physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
+                }else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_POPU)) {
+                    levelObject = new Sprite(x, y, resourcesManager.popu_zona, vbom);
+                    final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyDef.BodyType.StaticBody, FIXTURE_DEF);
+                    body.setUserData("popu");
+                    physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
                 }else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLATFORM3)) {
                     levelObject = new Sprite(x, y, resourcesManager.platform3_zona, vbom);
                     final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyDef.BodyType.StaticBody, FIXTURE_DEF);
                     body.setUserData("platform3");
                     physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
-                }else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_COIN)) { // Creem monedes
-                    levelObject = new Sprite(x, y, resourcesManager.coin_zona, vbom) {
+                }else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PROTESTA)) {
+                    levelObject = new Sprite(x, y, resourcesManager.protesta_zona, vbom);
+                    final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyDef.BodyType.StaticBody, FIXTURE_DEF);
+                    body.setUserData("protesta");
+                    physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
+                }else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_EURO)) { // Creem euros
+                    levelObject = new Sprite(x, y, resourcesManager.euro_zona, vbom) {
                         @Override
                         protected void onManagedUpdate(float pSecondsElapsed) {
                             super.onManagedUpdate(pSecondsElapsed);
 
                             if(player.collidesWith(this)) { // Si toquem una moneda
-                                addToScore(10);
+                                addToScore(1000);
+                                this.setVisible(false);
+                                this.setIgnoreUpdate(true);
+                            }
+                        }
+                    };
+                    levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
+                }else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_POLI)) { // Creem policies
+                    levelObject = new Sprite(x, y, resourcesManager.poli_zona, vbom) {
+                        @Override
+                        protected void onManagedUpdate(float pSecondsElapsed) {
+                            super.onManagedUpdate(pSecondsElapsed);
+
+                            if(player.collidesWith(this)) { // Si toquem un policia
+                                addToScore(-500);
+                                this.setVisible(false);
+                                this.setIgnoreUpdate(true);
+                            }
+                        }
+                    };
+                    levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
+                }
+                else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_MARTELL)) { // Creem policies
+                    levelObject = new Sprite(x, y, resourcesManager.martell_zona, vbom) {
+                        @Override
+                        protected void onManagedUpdate(float pSecondsElapsed) {
+                            super.onManagedUpdate(pSecondsElapsed);
+
+                            if(player.collidesWith(this)) { // Si toquem un policia
+                                addToScore(-1500);
                                 this.setVisible(false);
                                 this.setIgnoreUpdate(true);
                             }
@@ -207,6 +257,24 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
                         }
                     };
                     levelObject = player;
+                }else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_LEVEL_COMPLETE))
+                {
+                    levelObject = new Sprite(x, y, resourcesManager.complete_stars_region, vbom)
+                    {
+                        @Override
+                        protected void onManagedUpdate(float pSecondsElapsed)
+                        {
+                            super.onManagedUpdate(pSecondsElapsed);
+
+                            if (player.collidesWith(this))
+                            {
+                                levelCompleteWindow.display(LevelCompleteWindow.StarsCount.TWO, GameScene.this, camera);
+                                this.setVisible(false);
+                                this.setIgnoreUpdate(true);
+                            }
+                        }
+                    };
+                    levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
                 }else {
                     throw new IllegalArgumentException();
                 }
@@ -243,53 +311,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
         gameOverText.setPosition(camera.getCenterX(), camera.getCenterY());
         attachChild(gameOverText);
         gameOverDisplayed = true;
-    }
-
-    /* ----- CONTACTES A PLATAFORMES ----- */
-
-    private ContactListener contactListener()
-    {
-        ContactListener contactListener = new ContactListener()
-        {
-            public void beginContact(Contact contact)
-            {
-                final Fixture x1 = contact.getFixtureA();
-                final Fixture x2 = contact.getFixtureB();
-
-                if (x1.getBody().getUserData() != null && x2.getBody().getUserData() != null)
-                {
-                    if (x2.getBody().getUserData().equals("player"))
-                    {
-                        player.increaseFootContacts();
-                    }
-                }
-            }
-
-            public void endContact(Contact contact)
-            {
-                final Fixture x1 = contact.getFixtureA();
-                final Fixture x2 = contact.getFixtureB();
-
-                if (x1.getBody().getUserData() != null && x2.getBody().getUserData() != null)
-                {
-                    if (x2.getBody().getUserData().equals("player"))
-                    {
-                        player.decreaseFootContacts();
-                    }
-                }
-            }
-
-            public void preSolve(Contact contact, Manifold oldManifold)
-            {
-
-            }
-
-            public void postSolve(Contact contact, ContactImpulse impulse)
-            {
-
-            }
-        };
-        return contactListener;
     }
 
 }

@@ -30,7 +30,7 @@ public abstract class Player extends AnimatedSprite {
 
     /* ----- Maxim de salts ----- */
 
-    private int footContacts = 0;
+    //private int footContacts = 0;
 
     /* ----- CONSTRUCTOR ----- */
 
@@ -75,12 +75,12 @@ public abstract class Player extends AnimatedSprite {
     /* ----- FUNCIO PER SALTAR ----- */
 
     public void jump() {
-        if (footContacts < 1) {
+        /*if (footContacts < 1) {
             return;
-        }
+        }*/
         body.setLinearVelocity(new Vector2(body.getLinearVelocity().x, 12));
     }
-
+/*
     public void increaseFootContacts() {
         footContacts++;
     }
@@ -88,5 +88,5 @@ public abstract class Player extends AnimatedSprite {
     public void decreaseFootContacts() {
 
         footContacts--;
-    }
+    }*/
 }
