@@ -3,10 +3,17 @@ package com.alex.disisespain4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Manifold;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.camera.hud.HUD;
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.LoopEntityModifier;
 import org.andengine.entity.modifier.ScaleModifier;
@@ -156,7 +163,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 
     private void createPhysics() {
         physicsWorld = new FixedStepPhysicsWorld(60, new Vector2(0, -17), false);
-        //physicsWorld.setContactListener(contactListener());
+        physicsWorld.setContactListener(contactListener());
         registerUpdateHandler(physicsWorld);
     }
 
@@ -318,6 +325,42 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
             }
         }
         return false;
+    }
+
+    private ContactListener contactListener() {
+        ContactListener contactListener = new ContactListener() {
+            public void beginContact(Contact contact) {
+                final Fixture x1 = contact.getFixtureA();
+                final Fixture x2 = contact.getFixtureB();
+
+                if (x1.getBody().getUserData().equals("platform2") && x2.getBody().getUserData().equals("player")) {
+
+                    engine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
+                       // player.jump(false);
+                        public void onTimePassed(final TimerHandler pTimerHandler) {
+                            pTimerHandler.reset();
+                            player.unregisterUpdateHandler(pTimerHandler);
+                            x1.getBody().setType(BodyDef.BodyType.DynamicBody);
+                        }
+                    }));
+                }
+            }
+
+            public void endContact(Contact contact) {
+                final Fixture x1 = contact.getFixtureA();
+                final Fixture x2 = contact.getFixtureB();
+
+            }
+
+            public void preSolve(Contact contact, Manifold oldManifold) {
+
+            }
+
+            public void postSolve(Contact contact, ContactImpulse impulse) {
+
+            }
+        };
+        return contactListener;
     }
 
     /* ----- TEXT DERROTA ----- */

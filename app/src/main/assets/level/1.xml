@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <level width="6000" height="540">
     <entity x="100" y="265" type="platform1"/>
+    <entity x="500" y="500" type="platform2"/>
+    <entity x="200" y="510" type="platform2"/>
 
     <!--    EUROS    -->
 
