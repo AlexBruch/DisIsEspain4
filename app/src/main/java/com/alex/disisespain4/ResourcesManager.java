@@ -2,6 +2,8 @@ package com.alex.disisespain4;
 
 import android.graphics.Color;
 
+import org.andengine.audio.music.Music;
+import org.andengine.audio.music.MusicFactory;
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.BoundCamera;
 import org.andengine.engine.camera.Camera;
@@ -21,6 +23,8 @@ import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.debug.Debug;
+
+import java.io.IOException;
 
 /**
  * Created by 48086820F on 19/05/2015.
@@ -46,26 +50,27 @@ public class ResourcesManager {
 
     private BuildableBitmapTextureAtlas menuTextureAtlas;
 
-    /* ----- LOADING SCENE ----- */
+    /* ----- FONTS ----- */
 
     public Font font;
+    public Font fontGameOver;
+    public Font fontHUD;
 
-    /* ----- PLATAFORMES I MONEDES ----- */
+    /* ----- OBJECTES I MONEDES ----- */
 
     // Textures del joc
     public BuildableBitmapTextureAtlas gameTextureAtlas;
 
-    // Textures d'objectes i monedes
+    // Textures d'objectes partida
 
     public ITextureRegion fons_joc;
     public ITextureRegion platform1_zona;
     public ITextureRegion platform2_zona;
-    public ITextureRegion platform3_zona;
     public ITextureRegion euro_zona;
     public ITextureRegion poli_zona;
     public ITextureRegion martell_zona;
-    public ITextureRegion protesta_zona;
     public ITextureRegion corbata_zona;
+    public ITextureRegion limit_zona;
 
     /* ----- TEXTURA JUGADOR ----- */
 
@@ -76,9 +81,9 @@ public class ResourcesManager {
     public ITextureRegion complete_window_region;
     public ITiledTextureRegion complete_stars_region;
 
-    /* ----- Popularitat ----- */
+    /* ----- MUSICA ----- */
 
-    public ITextureRegion popu_zona;
+    private Music music;
 
     public void loadMenuResources()
     {
@@ -126,18 +131,18 @@ public class ResourcesManager {
 
         posicio_jugador = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "jugador.png", 3, 1);
 
+        /* ----- OBJECTES JOC ----- */
+
         platform1_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "platform1.png");
         platform2_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "platform2.png");
-        platform3_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "platform3.png");
         euro_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "euro.png");
         corbata_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "corbata.png");
         complete_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "levelCompleteWindow.png");
         complete_stars_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "stars.png", 2, 1);
-        popu_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "popu.png");
         poli_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "poli.png");
         martell_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "martell.png");
-        protesta_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "protesta.png");
         fons_joc = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "fons.png");
+        limit_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "limit.png");
 
         try {
             this.gameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
@@ -149,11 +154,25 @@ public class ResourcesManager {
     }
 
     private void loadGameFonts() {
+        FontFactory.setAssetBasePath("gfx/font/");
+        final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+        final ITexture gameOverFont = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 
+        fontHUD = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "Plump.ttf", 30, true, Color.WHITE, 2, Color.BLACK);
+        fontGameOver = FontFactory.createStrokeFromAsset(activity.getFontManager(), gameOverFont, activity.getAssets(), "Plump.ttf", 70, true, Color.RED, 5, Color.BLACK);
+
+        fontHUD.load();
+        fontGameOver.load();
     }
 
     private void loadGameAudio() {
-
+        /*MusicFactory.setAssetBasePath("gfx/");
+        try {
+            this.music = MusicFactory.createMusicFromAsset(this.engine.getMusicManager(), activity, "music.mp3");
+            this.music.setLooping(true);
+        } catch (final IOException e) {
+            Debug.e(e);
+        }*/
     }
 
     public void loadSplashScreen() {

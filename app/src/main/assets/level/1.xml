@@ -58,12 +58,16 @@
 
     <entity x="60" y="270" type="player"/>
 
-    <entity x="25" y="530" type="popu"/>
-    <entity x="65" y="530" type="popu"/>
-    <entity x="105" y="530" type="popu"/>
-    <entity x="145" y="530" type="popu"/>
-
     <!--    COMPLETAR NIVELL    -->
 
     <entity x="5880" y="270" type="levelComplete"/>
+
+    <!--    LIMIT   -->
+    <entity x="480" y="540" type="limit"/>
+    <entity x="1440" y="540" type="limit"/>
+    <entity x="2400" y="540" type="limit"/>
+    <entity x="3360" y="540" type="limit"/>
+    <entity x="4320" y="540" type="limit"/>
+    <entity x="5280" y="540" type="limit"/>
+    <entity x="6240" y="540" type="limit"/>
 </level>

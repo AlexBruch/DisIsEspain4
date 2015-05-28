@@ -10,8 +10,8 @@ import org.andengine.util.adt.color.Color;
 public class LoadingScene extends BaseScene {
     @Override
     public void createScene() {
-        setBackground(new Background(Color.WHITE));
-        attachChild(new Text(480, 270, resourcesManager.font, "Loading...", vbom));
+        setBackground(new Background(Color.BLACK));
+        attachChild(new Text(480, 270, resourcesManager.font, "Cargando...", vbom));
     }
 
     @Override

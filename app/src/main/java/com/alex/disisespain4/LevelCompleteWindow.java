@@ -60,7 +60,7 @@ public class LevelCompleteWindow extends Sprite {
                 break;
         }
 
-        // Hide HUD
+        // Amaguem HUD
         camera.getHUD().setVisible(false);
 
         // Disable camera chase entity

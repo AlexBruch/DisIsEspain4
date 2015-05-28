@@ -39,6 +39,7 @@ import org.andengine.util.level.simple.SimpleLevelLoader;
 import org.xml.sax.Attributes;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Created by 48086820F on 20/05/2015.
@@ -47,11 +48,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 
     /* ----- HUD ----- */
     private HUD gameHUD;
-    private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_POPU = "popu";
+    //private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_POPU = "popu";
 
     /* ----- Puntuacions ----- */
     private Text scoreText;
-    private int score = 0;
+    public int score = 0;
 
     /* ----- FISIQUES ----- */
     private PhysicsWorld physicsWorld;
@@ -65,12 +66,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 
     private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLATFORM1 = "platform1";
     private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLATFORM2 = "platform2";
-    private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLATFORM3 = "platform3";
     private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_EURO = "euro";
     private static final Object TAG_CORBATA = "corbata";
     private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_POLI = "poli";
     private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_MARTELL = "martell";
-    //private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PROTESTA = "protesta";
+    private static final Object TAG_LIMIT = "limit";
 
     /* ----- TAG JUGADOR ----- */
 
@@ -144,9 +144,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
     private void createHUD() {
         gameHUD=new HUD();
         // Posicio text puntuacio
-        scoreText = new Text(620, 490, resourcesManager.font, "Suiza: 01234", new TextOptions(HorizontalAlign.LEFT), vbom);
+        scoreText = new Text(640, 510, resourcesManager.fontHUD, "1234567 en Suiza", new TextOptions(HorizontalAlign.LEFT), vbom);
         scoreText.setAnchorCenter(0, 0);
-        scoreText.setText("Suiza: 0");
+        scoreText.setText("0 en Suiza");
         gameHUD.attachChild(scoreText);
 
         camera.setHUD(gameHUD);
@@ -156,7 +156,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 
     private void addToScore(int i) {
         score += i;
-        scoreText.setText("Suiza: " + score);
+        scoreText.setText(score + " en Suiza");
+        if(score<0) {
+            player.onDie();
+        }
     }
 
     /* ----- FISIQUES ----- */
@@ -203,15 +206,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
                     final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyDef.BodyType.StaticBody, FIXTURE_DEF);
                     body.setUserData("platform2");
                     physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
-                }else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_POPU)) {
-                    levelObject = new Sprite(x, y, resourcesManager.popu_zona, vbom);
+                }else if (type.equals(TAG_LIMIT)) {
+                    levelObject = new Sprite(x, y, resourcesManager.limit_zona, vbom);
                     final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyDef.BodyType.StaticBody, FIXTURE_DEF);
-                    body.setUserData("popu");
-                    physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
-                }else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLATFORM3)) {
-                    levelObject = new Sprite(x, y, resourcesManager.platform3_zona, vbom);
-                    final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyDef.BodyType.StaticBody, FIXTURE_DEF);
-                    body.setUserData("platform3");
+                    body.setUserData("limit");
                     physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
                 }else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_EURO)) { // Creem euros
                     levelObject = new Sprite(x, y, resourcesManager.euro_zona, vbom) {
@@ -227,8 +225,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
                         }
                     };
                     levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
-                }
-                else if (type.equals(TAG_CORBATA)) { // Creem corbates
+                }else if (type.equals(TAG_CORBATA)) { // Creem corbates
                     levelObject = new Sprite(x, y, resourcesManager.corbata_zona, vbom) {
                         @Override
                         protected void onManagedUpdate(float pSecondsElapsed) {
@@ -271,17 +268,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
                         }
                     };
                     levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
-                }else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)) { // Posicionem el jugador a la pantalla
-                    player = new Player(x, y, vbom, camera, physicsWorld) {
-                        @Override
-                        public void onDie()
-                        {
-                            if(!gameOverDisplayed) { // Si no es mostra acaba el joc
-                                displayGameOverText();
-                            }
-                        }
-                    };
-                    levelObject = player;
                 }else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_LEVEL_COMPLETE))
                 {
                     levelObject = new Sprite(x, y, resourcesManager.complete_stars_region, vbom)
@@ -296,11 +282,22 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
                                 levelCompleteWindow.display(LevelCompleteWindow.StarsCount.ONE, GameScene.this, camera);
                                 this.setVisible(false);
                                 this.setIgnoreUpdate(true);
-                                gameOverDisplayed = false;
+                                gameOverDisplayed = true;
                             }
                         }
                     };
                     levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
+                }else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)) { // Posicionem el jugador a la pantalla
+                    player = new Player(x, y, vbom, camera, physicsWorld) {
+                        @Override
+                        public void onDie()
+                        {
+                            if(!gameOverDisplayed) { // Si no es mostra acaba el joc
+                                displayGameOverText();
+                            }
+                        }
+                    };
+                    levelObject = player;
                 }else {
                     throw new IllegalArgumentException();
                 }
@@ -322,21 +319,31 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
             if(!firstTouch) {
                 player.setRunning();
                 firstTouch = true;
-            } else
-                player.jump();
+            } else {
+                if(score>=0) {
+                    player.jump(true);
+                }else {
+                    player.jump(false);
+                }
+            }
         }
         return false;
     }
 
     /* ----- TEXT DERROTA ----- */
     private void createGameOverText() {
-        gameOverText = new Text(0, 0, resourcesManager.font, "Game Over D:", vbom);
+        gameOverText = new Text(0, 0, resourcesManager.fontGameOver, "Game Over", vbom);
     }
     private void displayGameOverText() {
+        // Amaguem HUD
+        camera.getHUD().setVisible(false);
+        this.setVisible(false);
+        this.setIgnoreUpdate(true);
+
+        // Disable camera chase entity
         camera.setChaseEntity(null);
         gameOverText.setPosition(camera.getCenterX(), camera.getCenterY());
         attachChild(gameOverText);
         gameOverDisplayed = true;
     }
-
 }

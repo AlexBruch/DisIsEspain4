@@ -16,6 +16,8 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
  */
 public abstract class Player extends AnimatedSprite {
 
+    protected ResourcesManager resourcesManager;
+
     /* ----- JUGADOR ----- */
 
     private Body body;
@@ -70,7 +72,9 @@ public abstract class Player extends AnimatedSprite {
 
     /* ----- FUNCIO PER SALTAR ----- */
 
-    public void jump() {
-        body.setLinearVelocity(new Vector2(body.getLinearVelocity().x, 12));
+    public void jump(boolean salta) {
+        if(salta) {
+            body.setLinearVelocity(new Vector2(body.getLinearVelocity().x, 12));
+        }
     }
 }
