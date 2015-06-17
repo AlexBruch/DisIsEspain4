@@ -1,4 +1,4 @@
-package com.alex.disisespain4;
+package com.alex.disisespain;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.scene.menu.MenuScene;
@@ -14,7 +14,7 @@ import org.andengine.opengl.util.GLState;
  */
 public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener{
 
-    /* ----- MENU BUTTONS ----- */
+    /* ----- BOTONS MENU ----- */
     private MenuScene menuChildScene;
     private final int MENU_PLAY = 0;
     private final int MENU_OPTIONS = 1;
@@ -53,12 +53,12 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
         });
     }
 
-    /* ----- MENU BUTTONS ----- */
+    /* ----- BOTONS MENU ----- */
 
     private void createMenuChildScene()
     {
         menuChildScene = new MenuScene(camera);
-        menuChildScene.setPosition(10, 40); // Posicio botons
+        menuChildScene.setPosition(0, 0); // Posicio botons
 
         final IMenuItem playMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_PLAY, resourcesManager.play_region, vbom), 1.2f, 1);
         final IMenuItem optionsMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_OPTIONS, resourcesManager.options_region, vbom), 1.2f, 1);
@@ -69,8 +69,9 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
         menuChildScene.buildAnimations();
         menuChildScene.setBackgroundEnabled(false);
 
-        playMenuItem.setPosition(playMenuItem.getX(), playMenuItem.getY() + 10);
-        optionsMenuItem.setPosition(optionsMenuItem.getX(), optionsMenuItem.getY() - 110);
+        // Separacio
+        playMenuItem.setPosition(playMenuItem.getX() + 261, playMenuItem.getY()-255);
+        optionsMenuItem.setPosition(optionsMenuItem.getX()-320, optionsMenuItem.getY()+205);
 
         menuChildScene.setOnMenuItemClickListener(this);
 
@@ -82,7 +83,7 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
         switch(pMenuItem.getID())
         {
             case MENU_PLAY:
-                // carreguem el joc
+                // carreguem partida
                 SceneManager.getInstance().loadGameScene(engine);
                 return true;
             case MENU_OPTIONS:

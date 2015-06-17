@@ -1,64 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <level width="6000" height="540">
-    <entity x="100" y="265" type="platform1"/>
-    <entity x="500" y="500" type="platform2"/>
-    <entity x="200" y="510" type="platform2"/>
-
-    <!--    EUROS    -->
-
-    <entity x="400" y="270" type="euro"/>
-    <entity x="500" y="400" type="euro"/>
-    <entity x="600" y="400" type="euro"/>
-    <entity x="650" y="170" type="euro"/>
-    <entity x="800" y="500" type="euro"/>
-    <entity x="990" y="210" type="euro"/>
-    <entity x="1150" y="290" type="euro"/>
-    <entity x="1300" y="400" type="euro"/>
-    <entity x="1400" y="400" type="euro"/>
-    <entity x="1500" y="270" type="euro"/>
-    <entity x="1640" y="430" type="euro"/>
-    <entity x="1800" y="500" type="euro"/>
-    <entity x="1990" y="70" type="euro"/>
-    <entity x="2220" y="190" type="euro"/>
-    <entity x="3300" y="350" type="euro"/>
-    <entity x="3400" y="400" type="euro"/>
-    <entity x="4500" y="270" type="euro"/>
-    <entity x="4840" y="430" type="euro"/>
-    <entity x="4990" y="500" type="euro"/>
-    <entity x="5290" y="70" type="euro"/>
-    <entity x="5420" y="190" type="euro"/>
-    <entity x="5600" y="350" type="euro"/>
-
-    <!--    CORBATES    -->
-
-    <entity x="800" y="430" type="corbata"/>
-    <entity x="1950" y="120" type="corbata"/>
-    <entity x="2800" y="330" type="corbata"/>
-    <entity x="3950" y="120" type="corbata"/>
-    <entity x="4950" y="220" type="corbata"/>
-
-    <!--    POLIS    -->
-
-    <entity x="600" y="370" type="poli"/>
-    <entity x="800" y="300" type="poli"/>
-    <entity x="970" y="500" type="poli"/>
-    <entity x="1200" y="370" type="poli"/>
-    <entity x="1500" y="300" type="poli"/>
-    <entity x="2370" y="500" type="poli"/>
-    <entity x="2900" y="370" type="poli"/>
-    <entity x="3500" y="300" type="poli"/>
-    <entity x="4670" y="500" type="poli"/>
-
-    <!--    JUTGES    -->
-
-    <entity x="2600" y="150" type="martell"/>
-    <entity x="27850" y="360" type="martell"/>
-    <entity x="4600" y="500" type="martell"/>
-    <entity x="5600" y="410" type="martell"/>
 
     <!--    JUGADOR    -->
 
+    <entity x="100" y="265" type="chorizo"/>
     <entity x="60" y="270" type="player"/>
+
+    <!--     0      -->
+
+    <entity x="400" y="270" type="euro"/>
+    <entity x="300" y="230" type="euro"/>
+    <entity x="490" y="90" type="euro"/>
+
+
+    <!--    500    -->
+
+    <entity x="500" y="400" type="euro"/>
+    <entity x="600" y="45" type="cartell"/>
+    <entity x="600" y="320" type="poli"/>
+    <entity x="600" y="400" type="euro"/>
+    <entity x="650" y="170" type="euro"/>
+    <entity x="800" y="300" type="poli"/>
+    <entity x="800" y="110" type="corbata"/>
+    <entity x="800" y="190" type="euro"/>
+    <entity x="800" y="490" type="helicopter"/>
+    <entity x="970" y="500" type="poli"/>
+    <entity x="990" y="210" type="euro"/>
+
+
+    <!--    1000    -->
+
+    <entity x="1100" y="45" type="cartell2"/>
+    <entity x="1150" y="290" type="euro"/>
+    <entity x="1200" y="350" type="poli"/>
+    <entity x="1300" y="420" type="euro"/>
+    <entity x="1400" y="300" type="euro"/>
+    <entity x="1500" y="40" type="cartell"/>
+    <entity x="1500" y="180" type="euro"/>
+    <entity x="1500" y="320" type="poli"/>
+
+
+    <!--    1500    -->
+
+    <entity x="1600" y="330" type="sobre"/>
+    <entity x="1600" y="450" type="helicopter"/>
+    <entity x="1680" y="360" type="euro"/>
+    <entity x="1700" y="45" type="cartell2"/>
+    <entity x="1800" y="30" type="cartell"/>
+    <entity x="1800" y="500" type="euro"/>
+    <entity x="1950" y="120" type="corbata"/>
+    <entity x="1990" y="70" type="euro"/>
+
+    <!--    2000    -->
+
+    <entity x="2220" y="190" type="euro"/>
+    <entity x="2370" y="500" type="poli"/>
+    <entity x="2400" y="45" type="cartell"/>
+    <entity x="2400" y="200" type="sobre"/>
+    <entity x="2600" y="150" type="martell"/>
+    <entity x="2785" y="360" type="martell"/>
+    <entity x="2800" y="240" type="corbata"/>
+    <entity x="2850" y="35" type="cartell"/>
+    <entity x="2900" y="310" type="poli"/>
+    <entity x="2900" y="450" type="helicopter"/>
+
+    <!--    3000    -->
+
+    <entity x="3075" y="305" type="martell"/>
+    <entity x="3090" y="415" type="euro"/>
+    <entity x="3100" y="30" type="cartell"/>
+    <entity x="3130" y="180" type="euro"/>
+    <entity x="3190" y="480" type="euro"/>
+    <entity x="3270" y="250" type="euro"/>
+    <entity x="3300" y="350" type="euro"/>
+    <entity x="3450" y="400" type="euro"/>
+    <entity x="3540" y="330" type="poli"/>
+    <entity x="3600" y="45" type="cartell"/>
+    <entity x="3950" y="120" type="corbata"/>
+
+    <!--    4000    -->
+
+    <entity x="4100" y="460" type="sobre"/>
+    <entity x="4270" y="500" type="poli"/>
+    <entity x="4390" y="220" type="euro"/>
+    <entity x="4400" y="40" type="cartell"/>
+    <entity x="4450" y="230" type="euro"/>
+    <entity x="4500" y="340" type="martell"/>
+    <entity x="4600" y="430" type="helicopter"/>
+    <entity x="4670" y="300" type="poli"/>
+    <entity x="4700" y="40" type="cartell2"/>
+    <entity x="4840" y="430" type="euro"/>
+    <entity x="4950" y="220" type="corbata"/>
+    <entity x="4990" y="500" type="euro"/>
+
+    <!--    5000    -->
+
+    <entity x="5278" y="80" type="martell"/>
+    <entity x="5278" y="300" type="martell"/>
+    <entity x="5278" y="520" type="martell"/>
+    <entity x="5258" y="410" type="sobre"/>
+    <entity x="5290" y="70" type="euro"/>
+    <entity x="5370" y="500" type="poli"/>
+    <entity x="5400" y="40" type="cartell"/>
+    <entity x="5420" y="120" type="euro"/>
+    <entity x="5450" y="250" type="corbata"/>
+    <entity x="5600" y="360" type="euro"/>
+    <entity x="5600" y="480" type="martell"/>
 
     <!--    COMPLETAR NIVELL    -->
 

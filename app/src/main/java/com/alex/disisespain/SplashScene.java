@@ -1,4 +1,4 @@
-package com.alex.disisespain4;
+package com.alex.disisespain;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.sprite.Sprite;

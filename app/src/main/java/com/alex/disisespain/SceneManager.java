@@ -1,4 +1,4 @@
-package com.alex.disisespain4;
+package com.alex.disisespain;
 
 import org.andengine.engine.Engine;
 import org.andengine.engine.handler.timer.ITimerCallback;
@@ -9,18 +9,15 @@ import org.andengine.ui.IGameInterface;
  * Created by 48086820F on 19/05/2015.
  */
 public class SceneManager {
-    //---------------------------------------------
-    // SCENES
-    //---------------------------------------------
+
+    /** ----- Pantalles joc ----- */
 
     private BaseScene splashScene;
     private BaseScene menuScene;
     private BaseScene gameScene;
     private BaseScene loadingScene;
 
-    //---------------------------------------------
-    // VARIABLES
-    //---------------------------------------------
+    /** ----- Variables ----- */
 
     private static final SceneManager INSTANCE = new SceneManager();
 
@@ -37,10 +34,6 @@ public class SceneManager {
         SCENE_GAME,
         SCENE_LOADING,
     }
-
-    //---------------------------------------------
-    // CLASS LOGIC
-    //---------------------------------------------
 
     public void setScene(BaseScene scene)
     {
@@ -70,10 +63,6 @@ public class SceneManager {
         }
     }
 
-    //---------------------------------------------
-    // GETTERS AND SETTERS
-    //---------------------------------------------
-
     public static SceneManager getInstance()
     {
         return INSTANCE;
@@ -89,7 +78,8 @@ public class SceneManager {
         return currentScene;
     }
 
-    /* ----- SPLASH ----- */
+    /** ----- SPLASH ----- */
+
     public void createSplashScene(IGameInterface.OnCreateSceneCallback pOnCreateSceneCallback)
     {
         ResourcesManager.getInstance().loadSplashScreen();
@@ -105,7 +95,7 @@ public class SceneManager {
         splashScene = null;
     }
 
-    /* ----- MENU ----- */
+    /** ----- MENU ----- */
 
     public void createMenuScene()
     {
@@ -115,6 +105,8 @@ public class SceneManager {
         SceneManager.getInstance().setScene(menuScene);
         disposeSplashScene();
     }
+
+    /** ----- PARTIDA ----- */
 
     public void loadGameScene(final Engine mEngine) {
         setScene(loadingScene);
@@ -130,7 +122,7 @@ public class SceneManager {
         }));
     }
 
-    /* ----- Per tornar al MENU ----- */
+    /** ----- Per tornar al MENU ----- */
 
     public void loadMenuScene(final Engine mEngine) {
         setScene(loadingScene);

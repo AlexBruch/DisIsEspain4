@@ -1,11 +1,10 @@
-package com.alex.disisespain4;
+package com.alex.disisespain;
 
 import android.view.KeyEvent;
 
 import org.andengine.engine.Engine;
 import org.andengine.engine.LimitedFPSEngine;
 import org.andengine.engine.camera.BoundCamera;
-import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.engine.options.EngineOptions;
@@ -16,16 +15,6 @@ import org.andengine.entity.scene.Scene;
 import org.andengine.ui.activity.BaseGameActivity;
 
 import java.io.IOException;
-
-/* TUTORIALS
- * http://www.matim-dev.com/full-game-tutorial---part-2.html
- * http://www.matim-dev.com/full-game-tutorial---part-5.html
- * https://www.youtube.com/watch?v=0-rYK2oh8oo
- * https://www.youtube.com/watch?v=uvv23lNOqyY
- *
- * ERRORS PHYSYCS
- * http://geq-i.blogspot.com.es/2014/02/how-to-setup-andengine-in-android-studio.html
- * */
 
 public class GameActivity extends BaseGameActivity {
 
@@ -43,7 +32,7 @@ public class GameActivity extends BaseGameActivity {
         camera = new BoundCamera(0, 0, 960, 540);
         EngineOptions engineOptions = new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new RatioResolutionPolicy(960, 540), this.camera);
         engineOptions.getAudioOptions().setNeedsMusic(true).setNeedsSound(true);
-        engineOptions.setWakeLockOptions(WakeLockOptions.SCREEN_ON);
+        engineOptions.setWakeLockOptions(WakeLockOptions.SCREEN_ON); // Pantalla sempre encesa
         return engineOptions;
     }
 
@@ -71,10 +60,7 @@ public class GameActivity extends BaseGameActivity {
             public void onTimePassed(final TimerHandler pTimerHandler)
             {
                 mEngine.unregisterUpdateHandler(pTimerHandler);
-                // load menu resources, create menu scene
-                // set menu scene using scene manager
-                // disposeSplashScene();
-                // READ NEXT ARTICLE FOR THIS PART.
+                // Carreguem el menu
                 SceneManager.getInstance().createMenuScene();
             }
         }));

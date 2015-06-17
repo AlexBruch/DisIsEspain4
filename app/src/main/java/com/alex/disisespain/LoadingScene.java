@@ -1,4 +1,4 @@
-package com.alex.disisespain4;
+package com.alex.disisespain;
 
 import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.text.Text;

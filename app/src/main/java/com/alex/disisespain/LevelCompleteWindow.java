@@ -1,4 +1,4 @@
-package com.alex.disisespain4;
+package com.alex.disisespain;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.scene.Scene;
@@ -10,9 +10,9 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
  * Created by 48086820F on 26/05/2015.
  */
 public class LevelCompleteWindow extends Sprite {
-    private TiledSprite star1;
-    private TiledSprite star2;
-    private TiledSprite star3;
+    private TiledSprite chorizo1;
+    private TiledSprite chprizo2;
+    private TiledSprite chorizo3;
 
     public enum StarsCount
     {
@@ -29,44 +29,44 @@ public class LevelCompleteWindow extends Sprite {
 
     private void attachStars(VertexBufferObjectManager pSpriteVertexBufferObject)
     {
-        star1 = new TiledSprite(150, 150, ResourcesManager.getInstance().complete_stars_region, pSpriteVertexBufferObject);
-        star2 = new TiledSprite(325, 150, ResourcesManager.getInstance().complete_stars_region, pSpriteVertexBufferObject);
-        star3 = new TiledSprite(500, 150, ResourcesManager.getInstance().complete_stars_region, pSpriteVertexBufferObject);
+        chorizo1 = new TiledSprite(170, 110, ResourcesManager.getInstance().complete_chorizo_region, pSpriteVertexBufferObject);
+        chprizo2 = new TiledSprite(325, 110, ResourcesManager.getInstance().complete_chorizo_region, pSpriteVertexBufferObject);
+        chorizo3 = new TiledSprite(480, 110, ResourcesManager.getInstance().complete_chorizo_region, pSpriteVertexBufferObject);
 
-        attachChild(star1);
-        attachChild(star2);
-        attachChild(star3);
+        attachChild(chorizo1);
+        attachChild(chprizo2);
+        attachChild(chorizo3);
     }
 
     public void display(StarsCount starsCount, Scene scene, Camera camera)
     {
-        // Canviem la quantitat d'estrelles segons les que tenim
+        // Canviem la quantitat de choriços segons el nivell
         switch (starsCount)
         {
             case ONE:
-                star1.setCurrentTileIndex(0);
-                star2.setCurrentTileIndex(1);
-                star3.setCurrentTileIndex(1);
+                chorizo1.setCurrentTileIndex(0);
+                chprizo2.setCurrentTileIndex(1);
+                chorizo3.setCurrentTileIndex(1);
                 break;
             case TWO:
-                star1.setCurrentTileIndex(0);
-                star2.setCurrentTileIndex(0);
-                star3.setCurrentTileIndex(1);
+                chorizo1.setCurrentTileIndex(0);
+                chprizo2.setCurrentTileIndex(0);
+                chorizo3.setCurrentTileIndex(1);
                 break;
             case THREE:
-                star1.setCurrentTileIndex(0);
-                star2.setCurrentTileIndex(0);
-                star3.setCurrentTileIndex(0);
+                chorizo1.setCurrentTileIndex(0);
+                chprizo2.setCurrentTileIndex(0);
+                chorizo3.setCurrentTileIndex(0);
                 break;
         }
 
         // Amaguem HUD
         camera.getHUD().setVisible(false);
 
-        // Disable camera chase entity
+        // Aturem camera
         camera.setChaseEntity(null);
 
-        // Attach our level complete panel in the middle of camera
+        // Posem el cartell de nivell complert al centre
         setPosition(camera.getCenterX(), camera.getCenterY());
         scene.attachChild(this);
     }

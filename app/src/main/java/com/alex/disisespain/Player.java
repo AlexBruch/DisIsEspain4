@@ -1,4 +1,4 @@
-package com.alex.disisespain4;
+package com.alex.disisespain;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -18,7 +18,7 @@ public abstract class Player extends AnimatedSprite {
 
     protected ResourcesManager resourcesManager;
 
-    /* ----- JUGADOR ----- */
+    /** ----- JUGADOR ----- */
 
     private Body body;
 
@@ -38,7 +38,7 @@ public abstract class Player extends AnimatedSprite {
         camera.setChaseEntity(this);
     }
 
-    /* ----- FISIQUES JUGADOR ----- */
+    /** ----- FISIQUES JUGADOR ----- */
 
     private void createPhysics(final Camera camera, PhysicsWorld physicsWorld) {
         body = PhysicsFactory.createBoxBody(physicsWorld, this, BodyDef.BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
@@ -54,7 +54,7 @@ public abstract class Player extends AnimatedSprite {
                 if (getY() <= 0) {
                     onDie();
                 }
-
+                // Jugador avancant
                 if (canRun) {
                     body.setLinearVelocity(new Vector2(5, body.getLinearVelocity().y));
                 }
@@ -62,10 +62,13 @@ public abstract class Player extends AnimatedSprite {
         });
     }
 
-    /* ----- FUNCIO PER CORRER ----- */
+    /* ----- FUNCIO PER ANIMACIO CORRER ----- */
 
     public void setRunning() {
-        canRun = true;
+        canRun = true; // Pot correr
+
+        /** ----- ANIMCACIO ----- */
+
         final long[] PLAYER_ANIMATE = new long[] {100, 100, 100};
         animate(PLAYER_ANIMATE, 0, 2, true);
     }

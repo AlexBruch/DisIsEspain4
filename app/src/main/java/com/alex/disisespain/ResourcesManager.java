@@ -1,14 +1,9 @@
-package com.alex.disisespain4;
+package com.alex.disisespain;
 
 import android.graphics.Color;
 
-import org.andengine.audio.music.Music;
-import org.andengine.audio.music.MusicFactory;
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.BoundCamera;
-import org.andengine.engine.camera.Camera;
-import org.andengine.engine.handler.timer.ITimerCallback;
-import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.texture.ITexture;
@@ -24,8 +19,6 @@ import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.debug.Debug;
 
-import java.io.IOException;
-
 /**
  * Created by 48086820F on 19/05/2015.
  */
@@ -38,11 +31,12 @@ public class ResourcesManager {
     public BoundCamera camera;
     public VertexBufferObjectManager vbom;
 
-    /* ----- SPLASH / LOGO ----- */
+    /** ----- SPLASH / LOGO ----- */
+
     public ITextureRegion splash_region;
     private BitmapTextureAtlas splashTextureAtlas;
 
-    /* ----- MENU ----- */
+    /** ----- MENU ----- */
 
     public ITextureRegion menu_background_region;
     public ITextureRegion play_region;
@@ -50,13 +44,13 @@ public class ResourcesManager {
 
     private BuildableBitmapTextureAtlas menuTextureAtlas;
 
-    /* ----- FONTS ----- */
+    /** ----- FONTS ----- */
 
     public Font font;
     public Font fontGameOver;
     public Font fontHUD;
 
-    /* ----- OBJECTES I MONEDES ----- */
+    /** ----- OBJECTES I MONEDES ----- */
 
     // Textures del joc
     public BuildableBitmapTextureAtlas gameTextureAtlas;
@@ -64,26 +58,29 @@ public class ResourcesManager {
     // Textures d'objectes partida
 
     public ITextureRegion fons_joc;
-    public ITextureRegion platform1_zona;
-    public ITextureRegion platform2_zona;
+    public ITextureRegion chorizo_zona;
+    public ITextureRegion heli_zona;
+    public ITextureRegion cartell_zona;
+    public ITextureRegion cartell2_zona;
     public ITextureRegion euro_zona;
     public ITextureRegion poli_zona;
     public ITextureRegion martell_zona;
     public ITextureRegion corbata_zona;
+    public ITextureRegion sobre_zona;
     public ITextureRegion limit_zona;
 
-    /* ----- TEXTURA JUGADOR ----- */
+    /** ----- TEXTURA JUGADOR ----- */
 
     public ITiledTextureRegion posicio_jugador;
 
-    /* ----- Nivell Completat ----- */
+    /** ----- Nivell Completat ----- */
 
     public ITextureRegion complete_window_region;
-    public ITiledTextureRegion complete_stars_region;
+    public ITiledTextureRegion complete_chorizo_region;
 
-    /* ----- MUSICA ----- */
+    /** ----- MUSICA ----- */
 
-    private Music music;
+    //private Music music;
 
     public void loadMenuResources()
     {
@@ -124,23 +121,28 @@ public class ResourcesManager {
 
     private void loadGameGraphics() {
 
+        /** ----- RUTA IMATGES TEXTURES ----- */
+
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/joc/");
         gameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 
-        /* ----- POSICIO JUGADOR ----- */
+        /** ----- CARREGUEM TEXTURES JUGADOR ----- */
 
         posicio_jugador = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "jugador.png", 3, 1);
 
-        /* ----- OBJECTES JOC ----- */
+        /** ----- CARREGUEM TEXTURES OBJECTES JOC ----- */
 
-        platform1_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "platform1.png");
-        platform2_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "platform2.png");
+        chorizo_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "chorizo.png");
+        heli_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "helicopter.png");
+        cartell_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "cartell.png");
+        cartell2_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "cartell2.png");
         euro_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "euro.png");
         corbata_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "corbata.png");
         complete_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "levelCompleteWindow.png");
-        complete_stars_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "stars.png", 2, 1);
+        complete_chorizo_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "chorizos.png", 2, 1);
         poli_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "poli.png");
         martell_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "martell.png");
+        sobre_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "sobre.png");
         fons_joc = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "fons.png");
         limit_zona = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "limit.png");
 
@@ -150,6 +152,7 @@ public class ResourcesManager {
             Debug.e(e);
         }
 
+        /** ----- CARREGUEM TOTES LES TEXTURES ----- */
         gameTextureAtlas.load();
     }
 
@@ -166,9 +169,9 @@ public class ResourcesManager {
     }
 
     private void loadGameAudio() {
-        /*MusicFactory.setAssetBasePath("gfx/");
+        /** MusicFactory.setAssetBasePath("gfx/");
         try {
-            this.music = MusicFactory.createMusicFromAsset(this.engine.getMusicManager(), activity, "music.mp3");
+            this.music = MusicFactory.createMusicFromAsset(this.engine.getMusicManager(), activity, "melodia.mp3");
             this.music.setLooping(true);
         } catch (final IOException e) {
             Debug.e(e);
@@ -177,7 +180,7 @@ public class ResourcesManager {
 
     public void loadSplashScreen() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-        splashTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
+        splashTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 400, 100, TextureOptions.BILINEAR);
         splash_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(splashTextureAtlas, activity, "splash.png", 0, 0);
         splashTextureAtlas.load();
     }
@@ -195,15 +198,6 @@ public class ResourcesManager {
         menuTextureAtlas.load();
     }
 
-    /**
-     * @param engine
-     * @param activity
-     * @param camera
-     * @param vbom
-     * <br><br>
-     * We use this method at beginning of game loading, to prepare Resources Manager properly,
-     * setting all needed parameters, so we can latter access them from different classes (eg. scenes)
-     */
     public static void prepareManager(Engine engine, GameActivity activity, BoundCamera camera, VertexBufferObjectManager vbom) {
         getInstance().engine = engine;
         getInstance().activity = activity;
@@ -216,7 +210,7 @@ public class ResourcesManager {
         return INSTANCE;
     }
 
-    /* ----- FONT LOADING ----- */
+    /** ----- FONT MENU ----- */
 
     private void loadMenuFonts() {
         FontFactory.setAssetBasePath("gfx/font/");
@@ -226,7 +220,7 @@ public class ResourcesManager {
         font.load();
     }
 
-    /* ----- TORNAR AL MENU ----- */
+    /** ----- TORNAR AL MENU ----- */
 
     public void unloadGameTextures() {
 
